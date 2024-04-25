@@ -66,7 +66,7 @@ async function validateUser(request,response){
         } 
     } catch(error) {
         response.status(500).json({
-            "status": "failure",
+            "status": "error",
             "message": "user not created",
             "error": error
         })
