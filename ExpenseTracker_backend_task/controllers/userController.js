@@ -52,6 +52,7 @@ async function validateUser(request,response){
                 "userID":user._id.toString()
             }
             const accessToken=generateToken(userDetails)
+            console.log(generateToken(userDetails))
             response.status(201).json({
                 "status": "success",
                 "message": "new user created",
