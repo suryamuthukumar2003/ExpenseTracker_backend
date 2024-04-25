@@ -3,8 +3,8 @@ const { createUser, validateUser } = require('../controllers/userController');
 require('../controllers/userController.js')
 const router=express.Router();
 
-router.post('/user/new', createUser);
+router.post('/new', createUser);
 
-router.post('/user/login',validateUser);
+router.post('/login',validateUser);
 
 module.exports=router;
