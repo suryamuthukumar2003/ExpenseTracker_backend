@@ -254,7 +254,7 @@ const bodyParser = require('body-parser')//middle ware
 const cors = require('cors')//middle ware
 const express = require('express')
 const mongoose = require('mongoose')
-
+require('dotenv').config()
 const expenseRoutes=require('./routes/expenseRoutes.js');
 const userRoutes=require('./routes/userRoutes.js');
 
@@ -267,7 +267,7 @@ app.use('/user',userRoutes)
 
 async function connectToDb() {
     try {
-        await mongoose.connect('mongodb+srv://suryamk2003:suryamk2003@cluster0.la65aby.mongodb.net/ExpenseTracker?retryWrites=true&w=majority&appName=Cluster0')
+        await mongoose.connect(process.env.MONGO_URL)
         console.log("DB connection established :)")
 
         const port = process.env.PORT || 8000

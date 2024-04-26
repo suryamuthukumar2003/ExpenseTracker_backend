@@ -1,7 +1,7 @@
 const{User}=require('../models/User.js');
 const jwt=require('jsonwebtoken')
-
-const secretkey="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ";
+require('dotenv').config()
+const secretkey=process.env.SECRET_KEY;
 
 function generateToken(userDetails){
     return jwt.sign(userDetails,secretkey);
@@ -38,28 +38,33 @@ async function validateUser(request,response){
 }
 
  async function createUser(request, response) {
+    
     try {
         const user = await User.find({"emailID": request.body.emailID})
+        console.log(user);
+
         if(user.length === 0) {
             const user=await User.create({
                 "emailID": request.body.emailID,
                 "password": request.body.password,
                 "userName": request.body.userName
             })
+            // console.log(user);
             const userDetails={
                 "userName":user.userName,
                 "emailID":user.emailID,
                 "userID":user._id.toString()
             }
+            // console.log(userDetails)
             const accessToken=generateToken(userDetails)
-            console.log(generateToken(userDetails))
             response.status(201).json({
                 "status": "success",
                 "message": "new user created",
-                "access":accessToken,
+                "accessToken":accessToken,
                 "userDetails":userDetails
             })
-        } else {
+        } 
+        else {
             response.status(409).json({
                 "status": "failure",
                 "message": "user already exist"
