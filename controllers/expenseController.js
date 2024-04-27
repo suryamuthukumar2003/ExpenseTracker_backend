@@ -5,8 +5,6 @@ async function updateExpense(request, response) {
         await Expense.findByIdAndUpdate(request.params.id, {
             "amount": request.body.amount,
             "category": request.body.category,
-            "date": request.body.date,
-            "userID":request.body.userID
         })
         response.status(200).json({
             "status" : "success",
@@ -39,7 +37,7 @@ async function deleteExpense(request, response) {
 
 async function getExpense(request, response) {
     try {
-        const expenseDetails = await Expense.find({"userID":request.params.userID})
+        const expenseDetails = await Expense.find({"userID":request.params.userID}).sort({date:-1})
         response.status(200).json(expenseDetails)
     } catch(error) {
         response.status(500).json({

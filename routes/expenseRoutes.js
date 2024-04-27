@@ -13,7 +13,6 @@ const secretkey=process.env.SECRET_KEY;
 function authenticateToken(request,response,next){
     try{
         const authHeader=request.headers.authorization;
-        console.log(authHeader)
         const accessToken =authHeader && authHeader.split(' ')[1];
         if(accessToken){
             jwt.verify(accessToken,secretkey,(error,userDetails)=>{
